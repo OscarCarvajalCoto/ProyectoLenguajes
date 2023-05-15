@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProyectoLenguajes.Models;
 using System.Diagnostics;
-
+//Realizando una prueba para commitb
 namespace ProyectoLenguajes.Controllers
 {
     public class HomeController : Controller
