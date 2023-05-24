@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProyectoLenguajes.Models;
 using System.Diagnostics;
-//Prueba Adrian 4
+
 namespace ProyectoLenguajes.Controllers
 {
     public class HomeController : Controller
