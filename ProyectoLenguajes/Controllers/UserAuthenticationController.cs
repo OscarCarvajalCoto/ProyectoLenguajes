@@ -25,7 +25,7 @@ namespace ProyectoLenguajes.Controllers
             {
                 return View(model);
             }
-            model.Role = "user";
+            model.Role = "client";
             var result = await _service.RegistrationAsync(model);
             TempData["msg"] = result.Message;
             return RedirectToAction(nameof(Registration));
@@ -62,20 +62,20 @@ namespace ProyectoLenguajes.Controllers
             return RedirectToAction(nameof(Login));
         }
 
-        public async Task<IActionResult> Reg()
-        {
-            var model = new RegistrationModel
-            {
-                UserName = "admin_w",
-                Name = "Wilson-Mata",
-                Email = "wilsonbm@gmail.com",
-                Password = "Admin2023*",
-            };
-            model.Role = "admin";
-            var result = await _service.RegistrationAsync(model);
-            return Ok(result);
+        //public async Task<IActionResult> Reg()
+        //{
+        //    var model = new RegistrationModel
+        //    {
+        //        UserName = "super_admin_w",
+        //        Name = "Wilson-Mata",
+        //        Email = "wilsonbm@gmail.com",
+        //        Password = "SuperAdmin2023*",
+        //    };
+        //    model.Role = "superadmin";
+        //    var result = await _service.RegistrationAsync(model);
+        //    return Ok(result);
 
-        }
+        //}
 
     }
 }
