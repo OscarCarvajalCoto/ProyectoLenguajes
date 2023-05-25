@@ -7,9 +7,29 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Streamify - Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <style>
+        .text-danger {
+            color: red;
+        }
+
+        .btn-primary,
+        .btn-info {
+            display: block;
+            margin-top: 10px;
+            background-color: forestgreen;
+            color: #fff;
+            border-color: forestgreen;
+        }
+
+            .btn-primary:hover,
+            .btn-info:hover {
+                background-color: darkolivegreen;
+                border-color: darkolivegreen;
+            }
+
         body {
             background-color: #000;
             font-family: Arial, sans-serif;
@@ -18,7 +38,8 @@
 
         .container {
             border: 1px solid #333;
-            width: 400px;
+            width: 80%;
+            max-width: 400px;
             margin: 50px auto;
             padding: 20px;
             background-color: #222;
@@ -26,96 +47,85 @@
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
         }
 
-        h3 {
+            .container h3 {
+                margin-bottom: 20px;
+            }
+
+        .form-group {
             margin-bottom: 20px;
         }
 
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            text-align: left;
-        }
-
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #333;
-            color: #fff;
-        }
-
-        .text-danger {
-            color: green;
-            margin-top: 5px;
-            text-align: left;
-        }
-
-        .btn-primary {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: forestgreen;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-            .btn-primary:hover {
-                background-color: darkolivegreen;
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+                text-align: left;
             }
 
-        .btn-info {
-            display: block;
-            margin-top: 20px;
-            color: #888;
-            text-decoration: none;
-        }
-
-            .btn-info:hover {
+            .form-group input[type="text"],
+            .form-group input[type="password"] {
+                width: 100%;
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                background-color: #333;
                 color: #fff;
             }
 
-        .signup-button {
+                .form-group input[type="text"]:focus,
+                .form-group input[type="password"]:focus {
+                    outline: none;
+                }
+
+        .btn-text {
+            display: inline-block;
+            background-color: transparent;
+            color: #888;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: underline;
             margin-top: 10px;
+            padding: 0;
         }
+
+        .btn-text:hover {
+                color: #fff;
+            }
 
     </style>
 </head>
 <body>
     <div class="container">
-        <h3>Registration</h3>
         <form asp-action="Registration" method="post">
+            <h3>Registration</h3>
             <div class="form-group">
-                <label>Name</label>
-                <input type="text" class="form-control" asp-for="Name" />
+                <label for="Name">Name</label>
+                <input type="text" class="form-control" id="Name" name="Name" />
                 <span class="text-danger" asp-validation-for="Name"></span>
             </div>
 
             <div class="form-group">
-                <label>UserName</label>
-                <input type="text" class="form-control" asp-for="UserName" />
+                <label for="UserName">UserName</label>
+                <input type="text" class="form-control" id="UserName" name="UserName" />
                 <span class="text-danger" asp-validation-for="UserName"></span>
             </div>
 
             <div class="form-group">
-                <label>Email</label>
-                <input type="text" class="form-control" asp-for="Email" />
+                <label for="Email">Email</label>
+                <input type="text" class="form-control" id="Email" name="Email" />
                 <span class="text-danger" asp-validation-for="Email"></span>
             </div>
 
             <div class="form-group">
-                <label>Password</label>
-                <input type="password" class="form-control" asp-for="Password" />
+                <label for="Password">Password</label>
+                <input type="password" class="form-control" id="Password" name="Password" />
                 <span class="text-danger" asp-validation-for="Password"></span>
             </div>
 
             <div class="form-group">
-                <label>Password Confirm</label>
-                <input type="password" class="form-control" asp-for="PasswordConfirm" />
+                <label for="PasswordConfirm">Password Confirm</label>
+                <input type="password" class="form-control" id="PasswordConfirm" name="PasswordConfirm" />
                 <span class="text-danger" asp-validation-for="PasswordConfirm"></span>
             </div>
 
@@ -126,9 +136,8 @@
                 </div>
             }
 
-            <button type="submit" class="btn btn-primary signup-button">Sign Up</button>
-
-            <a class="btn btn-info" href="/UserAuthentication/Login">Login</a>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+            <a class="btn-text" href="/UserAuthentication/Login">Do you already have an account? Log in now</a>
         </form>
     </div>
 </body>
