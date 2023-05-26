@@ -15,7 +15,7 @@
             <input type="hidden" asp-for="User.Id" />
             <div class="form-group">
                 <label asp-for="Roles" class="control-label text-capitalize"></label>
-                <input asp-for="Roles[0]" list="roles" class="form-control" />
+                <input asp-for="Roles[0]" list="roles" class="form-control"/>
                 <datalist id="roles">
                     <option><span asp-validation-for="Roles[0]" class="text-danger">admin</span></option>
                     <option><span asp-validation-for="Roles[0]" class="text-danger">client</span></option>

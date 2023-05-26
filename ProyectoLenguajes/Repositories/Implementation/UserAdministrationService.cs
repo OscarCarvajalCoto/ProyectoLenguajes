@@ -35,7 +35,7 @@ namespace ProyectoLenguajes.Repositories.Implementation
             return new UserInformation() { User = user, Roles = (List<string>) userRoles};
         }
 
-        public async Task<Status> UpdateAsync(UserInformation user)
+        public async Task<Status> UpdateAsyncSA(UserInformation user)
         {
             var model = await userManager.FindByIdAsync(user.User.Id);
             model.Name = user.User.Name;
@@ -51,16 +51,9 @@ namespace ProyectoLenguajes.Repositories.Implementation
                 return status;
             }
 
-            var removeRoles = new IdentityResult();
+            var userRoles = await userManager.GetRolesAsync(model);
+            var removeRoles = await userManager.RemoveFromRolesAsync(model, userRoles);
             //Roles Managment
-            if (user.Roles[0]=="admin")
-            {
-                removeRoles = await userManager.RemoveFromRoleAsync(model, "client");
-            }
-            else if(user.Roles[0] == "client")
-            {
-                removeRoles = await userManager.RemoveFromRoleAsync(model, "admin");
-            }
             
             if (removeRoles.Succeeded)
             {
@@ -137,6 +130,27 @@ namespace ProyectoLenguajes.Repositories.Implementation
 
             status.StatusCode = 1;
             status.Message = "User Has Registered Successfully";
+            return status;
+        }
+
+        public async Task<Status> UpdateAsyncA(UserInformation user)
+        {
+            var model = await userManager.FindByIdAsync(user.User.Id);
+            model.Name = user.User.Name;
+            model.UserName = user.User.UserName;
+            model.Email = user.User.Email;
+
+            var status = new Status();
+            var update = await userManager.UpdateAsync(model);
+            if (!update.Succeeded)
+            {
+                status.StatusCode = 0;
+                status.Message = "User Update Failed";
+                return status;
+            }
+
+            status.StatusCode = 1;
+            status.Message = "User Has Updated Successfully";
             return status;
         }
     }

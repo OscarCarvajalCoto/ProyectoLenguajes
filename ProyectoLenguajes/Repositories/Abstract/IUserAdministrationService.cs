@@ -9,7 +9,8 @@ namespace ProyectoLenguajes.Repositories.Abstract
         Task<List<UserInformation>> GetUsersByRoleAsync(string role);
         Task<UserInformation> GetUserByIdAsync(string id);
         Task<Status> CreateAsync(RegistrationModel model);
-        Task<Status> UpdateAsync(UserInformation user);
+        Task<Status> UpdateAsyncSA(UserInformation user);
+        Task<Status> UpdateAsyncA(UserInformation user);
         Task<Status> DeleteAsync(ApplicationUser user);
     }
 }

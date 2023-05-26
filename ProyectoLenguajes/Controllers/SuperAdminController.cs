@@ -1,19 +1,24 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProyectoLenguajes.Models.DTO;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using ProyectoLenguajes.Models;
+using ProyectoLenguajes.Models.Domain;
+using ProyectoLenguajes.Models.DTO;
 using ProyectoLenguajes.Repositories.Abstract;
 using System.Data;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
+using System;
+using Microsoft.CodeAnalysis;
 
 namespace ProyectoLenguajes.Controllers
 {
-    [Authorize(Roles = "admin")]
-    public class AdminController : Controller
+    [Authorize(Roles = "superadmin")]
+    public class SuperAdminController : Controller
     {
         private readonly IUserAdministrationService _service;
-        public AdminController(IUserAdministrationService service)
+        public SuperAdminController(IUserAdministrationService service)
         {
             this._service = service;
         }
@@ -21,6 +26,8 @@ namespace ProyectoLenguajes.Controllers
         public async Task<IActionResult> Index()
         {
             var userListT = new List<UserInformation>();
+            var userAdminList = await _service.GetUsersByRoleAsync("admin");
+            userListT.AddRange(userAdminList);
             var userClientList = await _service.GetUsersByRoleAsync("client");
             userListT.AddRange(userClientList);
             return View(userListT);
@@ -50,7 +57,6 @@ namespace ProyectoLenguajes.Controllers
                 {
                     throw new Exception("There was an error");
                 }
-                model.Role = "client";
                 var result = await _service.CreateAsync(model);
                 TempData["msg"] = result.Message;
                 return RedirectToAction(nameof(Create));
@@ -75,7 +81,7 @@ namespace ProyectoLenguajes.Controllers
         {
             try
             {
-                await _service.UpdateAsyncA(userI);
+                await _service.UpdateAsyncSA(userI);
                 return View(userI);
             }
             catch
@@ -106,9 +112,12 @@ namespace ProyectoLenguajes.Controllers
                 return View();
             }
         }
+
         public async Task<IActionResult> DownloadUsersReportPDF()
         {
             var userListT = new List<UserInformation>();
+            var userAdminList = await _service.GetUsersByRoleAsync("admin");
+            userListT.AddRange(userAdminList);
             var userClientList = await _service.GetUsersByRoleAsync("client");
             userListT.AddRange(userClientList);
 
@@ -161,8 +170,7 @@ namespace ProyectoLenguajes.Controllers
                 });
             }).GeneratePdf(); //nos devuelve bytes con el PDF
             var stream = new MemoryStream(documentPDF); //crear el PDF y lo guarda en memoria
-            return File(stream, "application/pdf", "UsersReport_" + DateTime.Now.ToString("dd/MM/yyyy") + ".pdf"); //enviar el documento con su tipo y nombre
+            return File(stream, "application/pdf", "UsersReport_"+DateTime.Now.ToString("dd/MM/yyyy")+".pdf"); //enviar el documento con su tipo y nombre
         }
-
     }
 }
