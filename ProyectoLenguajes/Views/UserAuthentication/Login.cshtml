@@ -7,76 +7,111 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NombrePagina - Login</title>
     <style>
-        form {
-            border: 3px solid #f1f1f1;
-            width: 60%;
-            margin: auto;
-            margin-top: 10%;
+        body {
+            background-color: #000;
+            font-family: Arial, sans-serif;
+            color: #fff;
         }
 
-        input[type=text], input[type=password] {
+        .login-container {
+            border: 1px solid #333;
+            width: 80%;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #222;
+            text-align: center;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+
+            .login-container h2 {
+                margin-bottom: 20px;
+            }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+            .input-group label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+                text-align: left;
+            }
+
+            .input-group input[type="text"],
+            .input-group input[type="password"] {
+                width: 100%;
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                background-color: #333;
+                color: #fff;
+            }
+
+                .input-group input[type="text"]:focus,
+                .input-group input[type="password"]:focus {
+                    outline: none;
+                }
+
+        .error-message {
+            color: green;
+            margin-top: 5px;
+            text-align: left;
+        }
+
+        .login-button {
             width: 100%;
-            padding: 12px 29px;
-            margin: 8px 0;
-            display: intine—block;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
-
-        button {
-            background-color: lightblue;
-            color: white;
-            padding: 14px 29px;
-            margin: 8px 0;
+            padding: 10px;
             border: none;
+            border-radius: 5px;
+            background-color: forestgreen;
+            color: #fff;
+            font-size: 16px;
             cursor: pointer;
-            width: 100%;
         }
 
-        .container {
-            padding: 16px;
+            .login-button:hover {
+                background-color: darkolivegreen;
+            }
+
+        .signup-link {
+            display: block;
+            margin-top: 20px;
+            color: #888;
+            text-decoration: none;
         }
 
-        .msg {
-            padding: 0px;
-        }
-
-        .err {
-            color: red;
-        }
+            .signup-link:hover {
+                color: #fff;
+            }
 
     </style>
 </head>
 <body>
-    <form asp-action="Login" method="post">
-        <div class="container">
-
-            <label asp-for="UserName">Username</label>
-            <input type="text" asp-for="UserName" />
-            <div class="msg">
-                <span class="err" asp-validation-for="UserName"></span>
+    <div class="login-container">
+        <h2>NombrePagina</h2>
+        <form asp-action="Login" method="post">
+            <div class="input-group">
+                <label asp-for="UserName">Username</label>
+                <input type="text" asp-for="UserName" />
             </div>
-
-            <label asp-for="Password">Password</label>
-            <input type="password" asp-for="Password" />
-            <div class="msg">
-                <span class="err" asp-validation-for="Password"></span>
+            <div class="input-group">
+                <label asp-for="Password">Password</label>
+                <input type="password" asp-for="Password" />
             </div>
-
             @if (TempData["msg"] != null)
             {
-                <div class="msg">
-                    <span class="err">@TempData["msg"]</span>
+                <div class="error-message">
+                    <span>@TempData["msg"]</span>
                 </div>
             }
-
-            <button type="submit">Login</button>
-            <a href="/UserAuthentication/Registration">Not a User? Click Here to Sign Up</a>
-
-        </div>
-    </form>
+            <button class="login-button" type="submit">Sign In</button>
+            <a href="/UserAuthentication/Registration" class="signup-link">Not a member? Sign up now</a>
+        </form>
+    </div>
 </body>
 </html>
