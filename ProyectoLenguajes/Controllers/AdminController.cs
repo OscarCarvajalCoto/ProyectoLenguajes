@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProyectoLenguajes.Models.DTO;
 using System.Data;
 
 namespace ProyectoLenguajes.Controllers
@@ -11,6 +12,6 @@ namespace ProyectoLenguajes.Controllers
         {
             return View();
         }
-
+        
     }
 }

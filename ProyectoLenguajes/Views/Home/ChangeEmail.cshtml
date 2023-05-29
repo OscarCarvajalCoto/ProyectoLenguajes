@@ -1,0 +1,18 @@
+﻿@model ProyectoLenguajes.Models.DTO.ChangeEmail
+
+<h2>Cambiar correo electrónico</h2>
+
+@using (Html.BeginForm("ChangeEmail", "UserAuthentication", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NewEmail, new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.NewEmail, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.NewEmail, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Cambiar correo electrónico" class="btn btn-primary" />
+    </div>
+}

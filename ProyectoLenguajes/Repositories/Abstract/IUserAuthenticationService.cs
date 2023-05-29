@@ -1,4 +1,5 @@
-﻿using ProyectoLenguajes.Models.DTO;
+﻿using Microsoft.AspNetCore.Identity;
+using ProyectoLenguajes.Models.DTO;
 
 namespace ProyectoLenguajes.Repositories.Abstract
 {
@@ -8,5 +9,8 @@ namespace ProyectoLenguajes.Repositories.Abstract
         Task<Status> RegistrationAsync(RegistrationModel model);
         Task LogoutAsync();
 
+        Task<IdentityResult> changePasswordAsync(ChangePasswordModel model);
+        Task<IdentityResult> changeEmailAsync(ChangePasswordModel model);
+        Task<IdentityResult> changeUserNameAsync(ChangePasswordModel model);
     }
 }
