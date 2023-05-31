@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ProyectoLenguajes.Models;
+﻿namespace ProyectoLenguajes.Models;
 
 public partial class MoviesAndSeriesActor
 {

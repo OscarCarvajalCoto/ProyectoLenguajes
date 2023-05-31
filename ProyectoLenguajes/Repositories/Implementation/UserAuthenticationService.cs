@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using NuGet.Protocol;
 using ProyectoLenguajes.Models.Domain;
 using ProyectoLenguajes.Models.DTO;
 using ProyectoLenguajes.Repositories.Abstract;
@@ -112,7 +111,7 @@ namespace ProyectoLenguajes.Repositories.Implementation
             {
                 await userManager.AddToRoleAsync(user, model.Role);
             }
-            
+
             status.StatusCode = 1;
             status.Message = "User Has Registered Successfully";
             return status;

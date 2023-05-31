@@ -24,7 +24,7 @@ namespace ProyectoLenguajes.Repositories.Implementation
             foreach (var user in userList)
             {
                 var userRoles = await userManager.GetRolesAsync(user);
-                userIList.Add(new UserInformation() { User= user, Roles = (List<string>) userRoles});
+                userIList.Add(new UserInformation() { User = user, Roles = (List<string>)userRoles });
             }
             return userIList;
         }
@@ -32,7 +32,7 @@ namespace ProyectoLenguajes.Repositories.Implementation
         {
             var user = await userManager.FindByIdAsync(id);
             var userRoles = await userManager.GetRolesAsync(user);
-            return new UserInformation() { User = user, Roles = (List<string>) userRoles};
+            return new UserInformation() { User = user, Roles = (List<string>)userRoles };
         }
 
         public async Task<Status> UpdateAsync(UserInformation user)
@@ -53,15 +53,15 @@ namespace ProyectoLenguajes.Repositories.Implementation
 
             var removeRoles = new IdentityResult();
             //Roles Managment
-            if (user.Roles[0]=="admin")
+            if (user.Roles[0] == "admin")
             {
                 removeRoles = await userManager.RemoveFromRoleAsync(model, "client");
             }
-            else if(user.Roles[0] == "client")
+            else if (user.Roles[0] == "client")
             {
                 removeRoles = await userManager.RemoveFromRoleAsync(model, "admin");
             }
-            
+
             if (removeRoles.Succeeded)
             {
                 if (!await roleManager.RoleExistsAsync(user.Roles[0]))

@@ -1,5 +1,4 @@
-﻿using ProyectoLenguajes.Models.Domain;
-using ProyectoLenguajes.Models.DTO;
+﻿using ProyectoLenguajes.Models.DTO;
 
 namespace ProyectoLenguajes.Repositories.Abstract
 {

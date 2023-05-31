@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using ProyectoLenguajes.Models;
-using ProyectoLenguajes.Models.Domain;
 using ProyectoLenguajes.Models.DTO;
 using ProyectoLenguajes.Repositories.Abstract;
-using System.Data;
 
 namespace ProyectoLenguajes.Controllers
 {
