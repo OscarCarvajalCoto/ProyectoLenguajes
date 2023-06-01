@@ -11,14 +11,14 @@ namespace ProyectoLenguajes.Repositories.Implementation
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
-        private readonly IUserService userService;
 
-        public UserAuthenticationService(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IUserService userService)
+
+        public UserAuthenticationService(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             this.roleManager = roleManager;
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this.userService = userService;
+
         }
         public async Task<Status> LoginAsync(LoginModel model)
         {
@@ -118,28 +118,6 @@ namespace ProyectoLenguajes.Repositories.Implementation
             return status;
         }
 
-        public async Task<IdentityResult> changePasswordAsync(ChangePasswordModel model)
-        {
-            var userId = userService.GetUserId();
-            var user = await userManager.FindByIdAsync(userId);
-            return await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
-            
-        }
-
-        public async Task<IdentityResult> changeUserNameAsync(ChangePasswordModel model)
-        {
-            var userId = userService.GetUserId();
-            var user = await userManager.FindByIdAsync(userId);
-            return await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
-
-        }
-
-        public async Task<IdentityResult> changeEmailAsync(ChangePasswordModel model)
-        {
-            var userId = userService.GetUserId();
-            var user = await userManager.FindByIdAsync(userId);
-            return await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
-
-        }
+       
     }
 }

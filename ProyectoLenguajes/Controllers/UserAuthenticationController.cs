@@ -81,7 +81,7 @@ namespace ProyectoLenguajes.Controllers
             return Ok(result);
 
         }
- 
+
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordModel model)
         {
@@ -202,7 +202,45 @@ namespace ProyectoLenguajes.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        
+        [HttpPost]
+        public async Task<IActionResult> UploadProfileImage(IFormFile file)
+        {
+            // Obtén el usuario actual
+            ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+
+            if (user != null)
+            {
+                // Verifica si se seleccionó un archivo
+                if (file != null && file.Length > 0)
+                {
+                    // Convierte el archivo en una cadena base64
+                    string profilePictureBase64;
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await file.CopyToAsync(memoryStream);
+                        byte[] fileBytes = memoryStream.ToArray();
+                        profilePictureBase64 = Convert.ToBase64String(fileBytes);
+                    }
+
+                    // Actualiza la imagen de perfil en el modelo del usuario
+                    user.ProfilePicture = profilePictureBase64;
+
+                    // Guarda los cambios en la base de datos
+                    var result = await _userManager.UpdateAsync(user);
+                    if (!result.Succeeded)
+                    {
+                        // El cambio de correo electrónico no fue exitoso, agrega errores de validación.
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                        return View("ChangeProfilePicture");
+                    }
+                }
+            }
+            return RedirectToAction("Index", "Home");
+        }
 
     }
 }
+

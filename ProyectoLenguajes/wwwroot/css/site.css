@@ -16,3 +16,8 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+#profileImagePreview {
+    max-height: 100%;
+    max-width: 100%;
+}

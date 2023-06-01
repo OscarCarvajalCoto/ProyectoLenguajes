@@ -47,6 +47,32 @@ namespace ProyectoLenguajes.Controllers
             return View();
         }
 
+        public async Task<IActionResult> ChangeProfilePicture()
+        {
+            // Obtener el usuario actualmente autenticado
+            ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+
+            if (user != null)
+            {
+                string profilePictureBase64 = user.ProfilePicture;
+                // Verificar si la imagen de perfil existe
+                if (!string.IsNullOrEmpty(user.ProfilePicture))
+                {
+                    // Convertir la cadena base64 en una URL válida
+                    string imageFormat = "image/png"; // Cambia esto según el formato de imagen que estés utilizando
+                    string profilePictureUrl = $"data:{imageFormat};base64,{profilePictureBase64}";
+                    // Pasar la URL de la imagen de perfil a la vista
+                    ViewBag.ProfilePicture = profilePictureUrl;
+                }
+                else
+                {
+                    ViewBag.ProfilePicture = "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png";
+                }
+            }
+
+            return View();
+        }
+
         public async Task<IActionResult> ViewDetail()
         {
             // Obtener el usuario actualmente autenticado
