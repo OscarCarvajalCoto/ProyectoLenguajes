@@ -1,0 +1,29 @@
+﻿@model ProyectoLenguajes.Models.Comment
+    
+@{
+}
+<!-- Formulario para agregar un comentario y calificar la película -->
+@using (Html.BeginForm("AgregarComentario", "Pelicula", FormMethod.Post))
+{
+    <div>
+        <label for="comentario">Comentario:</label>
+        @Html.TextAreaFor(model => model.comment1, new { id = "comentario" })
+    </div>
+
+    <div>
+        <label>Calificación:</label>
+        <label>
+            @Html.RadioButtonFor(model => model.comment1, "1") 1
+        </label>
+        <label>
+            @Html.RadioButtonFor(model => model.comment1, "2") 2
+        </label>
+        <label>
+            @Html.RadioButtonFor(model => model.comment1, "3") 3
+        </label>
+        <!-- Agrega más opciones de calificación según tus necesidades -->
+    </div>
+
+    <input type="hidden" name="peliculaId" value="hola" />
+    <input type="submit" value="Enviar" />
+}
