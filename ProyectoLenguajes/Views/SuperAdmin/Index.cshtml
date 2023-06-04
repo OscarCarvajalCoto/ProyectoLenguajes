@@ -49,8 +49,8 @@
                     @Html.DisplayFor(modelItem => item.User.Email)
                 </td>
                 <td>
-                    <button type="button" class="btn btn-dark btn-sm" onclick="location.href='@Url.Action("Details", "SuperAdmin", new { id = item.User.Id })'">Details</button> |
-                    <button type="button" class="btn btn-dark btn-sm" onclick="location.href='@Url.Action("Edit", "SuperAdmin", new { id = item.User.Id })'">Edit</button> |
+                    <button type="button" class="btn btn-dark btn-sm" onclick="location.href='@Url.Action("Details", "SuperAdmin", new { id = item.User.Id })'">Details</button> 
+                    <button type="button" class="btn btn-dark btn-sm" onclick="location.href='@Url.Action("Edit", "SuperAdmin", new { id = item.User.Id })'">Edit</button> 
                     <button type="button" class="btn btn-dark btn-sm" onclick="location.href='@Url.Action("Delete", "SuperAdmin", new { id = item.User.Id })'">Delete</button>
                 </td>
             </tr>

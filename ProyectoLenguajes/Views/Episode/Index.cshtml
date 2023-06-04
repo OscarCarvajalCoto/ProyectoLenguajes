@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ProyectoLenguajes.Models.Episode>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@ViewBag.ms_tittle Episodes</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.season_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.episode_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tittle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.duration)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.season_id)
+            </td>
+            <td>
+                 @Html.DisplayFor(modelItem => item.episode_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tittle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.duration)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-ms_id="@item.ms_id" asp-route-season_id="@item.season_id" asp-route-episode_id="@item.episode_id">Edit</a> |
+                <a asp-action="Details" asp-route-ms_id="@item.ms_id" asp-route-season_id="@item.season_id" asp-route-episode_id="@item.episode_id">Details</a> |
+                <a asp-action="Delete" asp-route-ms_id="@item.ms_id" asp-route-season_id="@item.season_id" asp-route-episode_id="@item.episode_id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
