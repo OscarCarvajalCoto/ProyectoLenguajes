@@ -1,19 +1,21 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoLenguajes.Data;
 using ProyectoLenguajes.Models;
+using System.Data;
 
 namespace ProyectoLenguajes.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class EpisodeController : Controller
     {
         private ApplicationDataContext db = new ApplicationDataContext();
         // GET: EpisodeController
         public ActionResult Index(int ms_id)
         {
-            GeneralData.current_ms_id = ms_id;
-            GeneralData.current_ms_title = db.Movie_Series.Where(x => x.ms_id == ms_id).FirstOrDefault().tittle;
-            ViewBag.ms_tittle = GeneralData.current_ms_title;
+            ViewBag.ms_id = ms_id;  
+            ViewBag.ms_tittle = db.Movie_Series.Where(x => x.ms_id == ms_id).FirstOrDefault().tittle;
             return View(db.Episodes.ToList().Where(x => x.ms_id == ms_id));
         }
 
@@ -24,10 +26,9 @@ namespace ProyectoLenguajes.Controllers
         }
 
         // GET: EpisodeController/Create
-        public ActionResult Create()
+        public ActionResult Create(int ms_id)
         {
-            ViewBag.ms_id = GeneralData.current_ms_id;
-            ViewBag.ms_tittle = GeneralData.current_ms_title;
+            ViewBag.ms_id = ms_id;
             return View();
         }
 
@@ -40,52 +41,62 @@ namespace ProyectoLenguajes.Controllers
             {
                 db.Episodes.Add(episode);
                 db.SaveChanges();
-                return View();
+                return RedirectToAction("Index", new { episode.ms_id });
             }
             catch
             {
+                ViewBag.ms_id = episode.ms_id;
+                ViewBag.Message = new Message() { Text = "The episode has not been added successfully", Tipo = Alerta.danger.ToString() };
                 return View();
             }
         }
 
         // GET: EpisodeController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int ms_id, int season_id, int episode_id)
         {
-            return View();
+            return View(db.Episodes.Where(x => x.ms_id == ms_id && x.season_id == season_id && x.episode_id == episode_id).FirstOrDefault());
         }
 
         // POST: EpisodeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Episode episode)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                db.Update(episode);
+                db.SaveChanges();
+                return RedirectToAction("Index", new { episode.ms_id });
             }
             catch
             {
+                ViewBag.ms_id = episode.ms_id;
+                ViewBag.Message = new Message() { Text = "The episode has not been updated successfully", Tipo = Alerta.danger.ToString() };
                 return View();
             }
         }
 
         // GET: EpisodeController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int ms_id, int season_id, int episode_id)
         {
-            return View();
+            return View(db.Episodes.Where(x => x.ms_id == ms_id && x.season_id == season_id && x.episode_id == episode_id).FirstOrDefault());
         }
 
         // POST: EpisodeController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Episode episode)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                db.Remove(episode);
+                db.SaveChanges();
+                return RedirectToAction("Index", new { episode.ms_id });
             }
             catch
             {
+                ViewBag.ms_id = episode.ms_id;
+                ViewBag.Message = new Message() { Text = "The episode has not been deleted successfully", Tipo = Alerta.danger.ToString() };
                 return View();
             }
         }

@@ -1,12 +1,17 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using ProyectoLenguajes.Data;
 using ProyectoLenguajes.Models;
 using System;
+using System.Data;
 
 namespace ProyectoLenguajes.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class Movie_SerieController : Controller
     {
         private ApplicationDataContext db = new ApplicationDataContext();
@@ -41,6 +46,7 @@ namespace ProyectoLenguajes.Controllers
             }
             catch
             {
+                ViewBag.Message = new Message() { Text = "The movie/serie has not been added successfully", Tipo = Alerta.danger.ToString() };
                 return View();
             }
         }
@@ -60,10 +66,11 @@ namespace ProyectoLenguajes.Controllers
             {
                 db.Update(movie_serie);
                 db.SaveChanges();
-                return View();
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
+                ViewBag.Message = new Message() { Text = "The movie/serie has not been updated successfully", Tipo = Alerta.danger.ToString() };
                 return View();
             }
         }
@@ -81,12 +88,15 @@ namespace ProyectoLenguajes.Controllers
         {
             try
             {
-                db.Movie_Series.Remove(movie_serie);
+                var parameter = new SqlParameter("@ms_id", movie_serie.ms_id);
+                var result = Task.Run(() => db.Database.ExecuteSqlRaw(@"exec Delete_Movie_Serie @ms_id", parameter));
+                //db.Movie_Series.Remove(movie_serie);
                 db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
+                ViewBag.Message = new Message() { Text = "The movie/serie has not been deleted successfully", Tipo = Alerta.danger.ToString() };
                 return View();
             }
         }

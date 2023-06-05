@@ -1,12 +1,26 @@
 ﻿@model ProyectoLenguajes.Models.Movie_Serie
 
 @{
-    ViewData["Title"] = "Edit";
+
+    if (Model.ms_type == "movie")
+    {
+        ViewData["Title"] = "Edit Movie";
+        <h1>Edit Movie</h1>
+    }
+    else if (Model.ms_type == "serie")
+    {
+        ViewData["Title"] = "Edit Serie";
+        <h1>Edit Serie</h1>
+    }
 }
 
-<h1>Edit</h1>
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success alert-@ViewBag.Message.Tipo fade show" role="alert">
+        <strong> Mesaage: </strong>@Html.Encode(ViewBag.Message.Text)
+    </div>
+}
 
-<h4>Movie_Serie</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,43 +28,52 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ms_id" />
             <div class="form-group">
-                <label asp-for="tittle" class="control-label"></label>
-                <input asp-for="tittle" class="form-control" />
+                <label asp-for="ms_type" class="control-label">Type</label>
+                <input asp-for="ms_type" class="form-control" list="types" autocomplete="off" />
+                <datalist id="types">
+                    <option value="movie" />
+                    <option value="serie" />
+                </datalist>
+                <span asp-validation-for="ms_type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tittle" class="control-label">Tittle</label>
+                <input asp-for="tittle" class="form-control" autocomplete="off" />
                 <span asp-validation-for="tittle" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="synopsis" class="control-label"></label>
-                <input asp-for="synopsis" class="form-control" />
+                <label asp-for="synopsis" class="control-label">Synopsis</label>
+                <input asp-for="synopsis" class="form-control" autocomplete="off" />
                 <span asp-validation-for="synopsis" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="release_year" class="control-label"></label>
-                <input asp-for="release_year" class="form-control" />
+                <label asp-for="release_year" class="control-label">Release Year</label>
+                <input asp-for="release_year" class="form-control" autocomplete="off" />
                 <span asp-validation-for="release_year" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="classificationMS" class="control-label"></label>
-                <input asp-for="classificationMS" class="form-control" />
+                <label asp-for="classificationMS" class="control-label">Classification</label>
+                <input asp-for="classificationMS" class="form-control" autocomplete="off" />
                 <span asp-validation-for="classificationMS" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="director" class="control-label"></label>
-                <input asp-for="director" class="form-control" />
+                <label asp-for="director" class="control-label">Director</label>
+                <input asp-for="director" class="form-control" autocomplete="off" />
                 <span asp-validation-for="director" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="cover" class="control-label"></label>
-                <input asp-for="cover" class="form-control" />
+                <label asp-for="cover" class="control-label">Cover</label>
+                <input asp-for="cover" class="form-control" autocomplete="off" />
                 <span asp-validation-for="cover" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="date_added" class="control-label"></label>
-                <input asp-for="date_added" class="form-control" />
+                <label asp-for="date_added" class="control-label">Date Added</label>
+                <input asp-for="date_added" class="form-control" autocomplete="off" />
                 <span asp-validation-for="date_added" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="duration" class="control-label"></label>
-                <input asp-for="duration" class="form-control" />
+                <label asp-for="duration" class="control-label">Duration</label>
+                <input asp-for="duration" class="form-control" autocomplete="off" />
                 <span asp-validation-for="duration" class="text-danger"></span>
             </div>
             <div class="form-group">

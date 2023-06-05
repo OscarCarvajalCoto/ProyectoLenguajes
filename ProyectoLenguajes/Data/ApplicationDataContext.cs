@@ -58,13 +58,13 @@ public partial class ApplicationDataContext : DbContext
 
             entity.ToTable("Comment");
 
-            entity.Property(e => e.app_user_id).HasMaxLength(450);
+            entity.Property(e => e.app_user).HasMaxLength(256);
             entity.Property(e => e.comment1).HasColumnName("comment");
 
             entity.HasOne(d => d.ms).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.ms_id)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Comment__ms_id__0B91BA14");
+                .HasConstraintName("FK__Comment__ms_id__160F4887");
         });
 
         modelBuilder.Entity<Episode>(entity =>
@@ -102,6 +102,9 @@ public partial class ApplicationDataContext : DbContext
             entity.Property(e => e.director)
                 .HasMaxLength(100)
                 .IsUnicode(false);
+            entity.Property(e => e.ms_type)
+                .HasMaxLength(5)
+                .IsUnicode(false);
             entity.Property(e => e.tittle)
                 .HasMaxLength(100)
                 .IsUnicode(false);
@@ -127,13 +130,13 @@ public partial class ApplicationDataContext : DbContext
 
             entity.ToTable("Rating");
 
-            entity.Property(e => e.app_user_id).HasMaxLength(450);
+            entity.Property(e => e.app_user).HasMaxLength(256);
             entity.Property(e => e.rating1).HasColumnName("rating");
 
             entity.HasOne(d => d.ms).WithMany(p => p.Ratings)
                 .HasForeignKey(d => d.ms_id)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Rating__ms_id__08B54D69");
+                .HasConstraintName("FK__Rating__ms_id__18EBB532");
         });
 
         OnModelCreatingPartial(modelBuilder);

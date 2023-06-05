@@ -1,0 +1,49 @@
+﻿@model IEnumerable<ProyectoLenguajes.Models.Comment>
+
+@{
+    ViewData["Title"] = "Comments";
+}
+
+<h1>@ViewBag.ms_tittle Comments</h1>
+
+<p>
+    <a asp-action="Create" asp-route-ms_id="@ViewBag.ms_id">Add Comment</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Comment
+            </th>
+            <th>
+                UserName
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.comment1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.app_user)
+            </td>
+            <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Options
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a asp-action="Details" asp-route-comment_id="@item.comment_id" class="dropdown-item">Details</a></li>
+                            <li><a asp-action="Edit" asp-route-comment_id="@item.comment_id" class="dropdown-item">Edit</a></li>
+                            <li><a asp-action="Delete" asp-route-comment_id="@item.comment_id" class="dropdown-item">Delete</a></li>
+                        </ul>
+                    </div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<a asp-controller="Movie_Serie" asp-action="Index">Back to Movies and Series</a>
