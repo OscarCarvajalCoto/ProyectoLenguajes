@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using NuGet.Protocol;
 using ProyectoLenguajes.Models.Domain;
 using ProyectoLenguajes.Models.DTO;
@@ -13,11 +13,13 @@ namespace ProyectoLenguajes.Repositories.Implementation
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
 
+
         public UserAuthenticationService(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             this.roleManager = roleManager;
             this.userManager = userManager;
             this.signInManager = signInManager;
+
         }
         public async Task<Status> LoginAsync(LoginModel model)
         {

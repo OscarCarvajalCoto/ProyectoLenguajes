@@ -1,0 +1,13 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<img id="profileImagePreview" src="@ViewBag.ProfilePicture" alt="Imagen de perfil" />
+
+@using (Html.BeginForm("UploadProfileImage", "UserAuthentication", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="file" accept="image/*" onchange="previewProfileImage(this)" />
+<button type="submit">Guardar imagen</button>
+}
