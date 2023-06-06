@@ -143,4 +143,5 @@ public partial class ApplicationDataContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
 }

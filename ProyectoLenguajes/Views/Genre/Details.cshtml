@@ -1,0 +1,23 @@
+﻿@model ProyectoLenguajes.Models.Genre
+
+@{
+    ViewData["Title"] = "Genre Details";
+}
+
+<h1>Genre Details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Genre
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.genre_name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-genre_id="@Model.genre_id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
