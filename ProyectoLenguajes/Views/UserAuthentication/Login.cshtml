@@ -9,6 +9,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>NombrePagina - Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <style>
         body {
             background-color: #000;
@@ -88,30 +89,33 @@
             .signup-link:hover {
                 color: #fff;
             }
-
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>NombrePagina</h2>
-        <form asp-action="Login" method="post">
-            <div class="input-group">
-                <label asp-for="UserName">Username</label>
-                <input type="text" asp-for="UserName" />
-            </div>
-            <div class="input-group">
-                <label asp-for="Password">Password</label>
-                <input type="password" asp-for="Password" />
-            </div>
-            @if (TempData["msg"] != null)
-            {
-                <div class="error-message">
-                    <span>@TempData["msg"]</span>
+    <div class="container">
+        <div class="login-container">
+            <h2>NombrePagina</h2>
+            <form asp-action="Login" method="post">
+                <div class="input-group">
+                    <label asp-for="UserName">Username</label>
+                    <input type="text" asp-for="UserName" class="form-control" />
                 </div>
-            }
-            <button class="login-button" type="submit">Sign In</button>
-            <a href="/UserAuthentication/Registration" class="signup-link">Not a member? Sign up now</a>
-        </form>
+                <div class="input-group">
+                    <label asp-for="Password">Password</label>
+                    <input type="password" asp-for="Password" class="form-control" />
+                </div>
+                @if (TempData["msg"] != null)
+                {
+                    <div class="error-message">
+                        <span>@TempData["msg"]</span>
+                    </div>
+                }
+                <button class="login-button" type="submit">Sign In</button>
+                <a href="/UserAuthentication/Registration" class="signup-link">Not a member? Sign up now</a>
+            </form>
+        </div>
     </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>
