@@ -106,46 +106,48 @@
     </style>
 </head>
 <body>
-    <h1><span class="edit-icon"></span>Update-User</h1>
-   
-    <hr />
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <form asp-action="Edit">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="User.Id" />
-                <div class="form-row">
-                    <div class="form-group">
-                        <label asp-for="Roles" class="control-label text-capitalize"></label>
-                        <input asp-for="Roles[0]" list="roles" class="form-control" />
-                        <datalist id="roles">
-                            <option><span asp-validation-for="Roles[0]" class="text-danger">admin</span></option>
-                            <option><span asp-validation-for="Roles[0]" class="text-danger">client</span></option>
-                        </datalist>
+    <div class="container">
+        <h1><span class="edit-icon"></span>Update-User</h1>
+
+        <hr />
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="User.Id" />
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label asp-for="Roles" class="control-label text-capitalize"></label>
+                            <input asp-for="Roles[0]" list="roles" class="form-control" />
+                            <datalist id="roles">
+                                <option><span asp-validation-for="Roles[0]" class="text-danger">admin</span></option>
+                                <option><span asp-validation-for="Roles[0]" class="text-danger">client</span></option>
+                            </datalist>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="User.Name" class="control-label"></label>
+                            <input asp-for="User.Name" class="form-control" />
+                            <span asp-validation-for="User.Name" class="text-danger"></span>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="User.Name" class="control-label"></label>
-                        <input asp-for="User.Name" class="form-control" />
-                        <span asp-validation-for="User.Name" class="text-danger"></span>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label asp-for="User.UserName" class="control-label"></label>
+                            <input asp-for="User.UserName" class="form-control" />
+                            <span asp-validation-for="User.UserName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="User.Email" class="control-label"></label>
+                            <input asp-for="User.Email" class="form-control" />
+                            <span asp-validation-for="User.Email" class="text-danger"></span>
+                        </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label asp-for="User.UserName" class="control-label"></label>
-                        <input asp-for="User.UserName" class="form-control" />
-                        <span asp-validation-for="User.UserName" class="text-danger"></span>
+                    <div class="form-group button-container">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <a asp-action="Index" class="btn btn-back">Back to List</a>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="User.Email" class="control-label"></label>
-                        <input asp-for="User.Email" class="form-control" />
-                        <span asp-validation-for="User.Email" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group button-container">
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                    <a asp-action="Index" class="btn btn-back">Back to List</a>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 
