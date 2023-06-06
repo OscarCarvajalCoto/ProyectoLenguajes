@@ -1,0 +1,75 @@
+﻿@model IEnumerable<ProyectoLenguajes.Models.Movie_Serie>
+
+@{
+    ViewData["Title"] = "Movies and Series";
+}
+
+<h1 class="text-center">Movies and Series</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Tittle</th>
+            <th>Synopsis</th>
+            <th>Release Year</th>
+            <th>Classification</th>
+            <th>Director</th>
+            <th>Date Added</th>
+            <th>Duration</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td class="text-capitalize">
+                @Html.DisplayFor(modelItem => item.ms_type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tittle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.synopsis)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.release_year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.classificationMS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.director)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date_added)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.duration)
+            </td>
+            <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Options
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a asp-action="Details" asp-route-ms_id="@item.ms_id" class="dropdown-item">Details</a></li>
+                            <li><a asp-action="Edit" asp-route-ms_id="@item.ms_id" class="dropdown-item">Edit</a></li>
+                            <li><a asp-action="Delete" asp-route-ms_id="@item.ms_id" class="dropdown-item">Delete</a></li>
+                            @if(item.ms_type == "serie"){
+                                <li><a asp-controller="Episode" asp-action="Index" asp-route-ms_id="@item.ms_id" class="dropdown-item">Episodes</a></li>
+                            }
+                            <li><a asp-controller="Comment" asp-action="Index" asp-route-ms_id="@item.ms_id" class="dropdown-item">Comments</a></li>
+                            <li><a asp-controller="Rating" asp-action="Index" asp-route-ms_id="@item.ms_id" class="dropdown-item">Ratings</a></li>
+                            <li><a asp-controller="Movie_Serie_Actor" asp-action="Index" asp-route-ms_id="@item.ms_id" class="dropdown-item">Actors</a></li>
+                            <li><a asp-controller="Movie_Serie_Genre" asp-action="Index" asp-route-ms_id="@item.ms_id" class="dropdown-item">Genres</a></li>
+                        </ul>
+                    </div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

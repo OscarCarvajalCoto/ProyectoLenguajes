@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ProyectoLenguajes.Models.Domain;
 using ProyectoLenguajes.Repositories.Abstract;
 using ProyectoLenguajes.Repositories.Implementation;
+using QuestPDF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,8 @@ builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService
 builder.Services.AddScoped<IUserAdministrationService, UserAdministrationService>();
 
 builder.Services.ConfigureApplicationCookie(op => op.LoginPath = "/UserAuthentication/Login");
+
+QuestPDF.Settings.License = LicenseType.Community;
 
 var app = builder.Build();
 

@@ -27,13 +27,16 @@
                         </li>
                         @if(User.IsInRole("admin")){
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin_Index</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">User Managment</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Movie_Serie" asp-action="Index">Database Managment</a>
                             </li>
                         }
                         else if (User.IsInRole("superadmin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="SuperAdminAdministration" asp-action="Index">User-Administration</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="SuperAdmin" asp-action="Index">User-Administration</a>
                             </li>
                         }
                         else

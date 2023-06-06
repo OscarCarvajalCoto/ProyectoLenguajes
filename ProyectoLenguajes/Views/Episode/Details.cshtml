@@ -1,0 +1,41 @@
+﻿@model ProyectoLenguajes.Models.Episode
+
+@{
+    ViewData["Title"] = "Episode Details";
+}
+
+<h1>Episode Details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Season
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.season_id)
+        </dd>
+        <dt class="col-sm-2">
+            Episode
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.episode_id)
+        </dd>
+        <dt class = "col-sm-2">
+            Tittle
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.tittle)
+        </dd>
+        <dt class = "col-sm-2">
+            Duration
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.duration)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-ms_id="@Model.ms_id" asp-route-season_id="@Model.season_id" asp-route-episode_id="@Model.episode_id">Edit</a> |
+    <a asp-action="Index" asp-route-ms_id="@Model.ms_id">Back to List</a>
+</div>

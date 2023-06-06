@@ -1,0 +1,82 @@
+﻿@model ProyectoLenguajes.Models.Movie_Serie_Genre
+@{
+    ViewData["Title"] = @ViewBag.IntermediateMSG.movie_serie.tittle + "Genres";
+}
+
+<h1 class="text-center">@ViewBag.IntermediateMSG.movie_serie.tittle Genres</h1>
+
+<h5>Add New Genre</h5>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="ms_id" value="@ViewBag.IntermediateMSG.movie_serie.ms_id" />
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="genre_id" id="genreInput" />
+                <select class="form-select" id="genreSelect" onchange="updateInput()">
+                    <option selected hidden>Select a genre</option>
+                    @foreach (Genre item in ViewBag.IntermediateMSG.genres_i)
+                    {
+                        <option value="@item.genre_id">@item.genre_name</option>
+                    }
+                </select>
+                <span asp-validation-for="genre_id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-dark btn-sm" id="btn_add" disabled />
+            </div>
+        </form>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Tittle
+            </th>
+            <th>
+                Genre
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Genre item in ViewBag.IntermediateMSG.genres_e)
+        {
+            <tr>
+                <td>
+                    @ViewBag.IntermediateMSG.movie_serie.tittle
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.genre_name)
+                </td>
+                <td>
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="ms_id" value="@ViewBag.IntermediateMSG.movie_serie.ms_id" />
+                        <input type="hidden" asp-for="genre_id" value="@item.genre_id" />
+                        <input type="submit" value="Delete" class="btn btn-dark btn-sm" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-center align-items-center text-center">
+    <button type="button" class="btn btn-dark btn-sm" onclick="location.href='@Url.Action("Index", "Genre")'">Manage Genres</button>
+</div>
+
+@section Scripts {
+    <script>
+        function updateInput() {
+            var select = document.getElementById("genreSelect");
+            var input = document.getElementById("genreInput");
+            var button = document.getElementById("btn_add");
+
+            button.disabled = false;
+            input.value = select.value;
+        }
+    </script>
+}

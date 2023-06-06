@@ -1,0 +1,44 @@
+﻿@model IEnumerable<ProyectoLenguajes.Models.Genre>
+
+@{
+    ViewData["Title"] = "Genres";
+}
+
+<h1 class="text-center">Genres</h1>
+
+<p>
+    <a asp-action="Create">Add Genre</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.genre_name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.genre_name)
+            </td>
+            <td>
+                <div class="btn-group">
+                        <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Options
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a asp-action="Details" asp-route-genre_id="@item.genre_id" class="dropdown-item">Details</a></li>
+                            <li><a asp-action="Edit" asp-route-genre_id="@item.genre_id" class="dropdown-item">Edit</a></li>
+                            <li> <a asp-action="Delete" asp-route-genre_id="@item.genre_id" class="dropdown-item">Delete</a></li>
+                        </ul>
+                    </div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+

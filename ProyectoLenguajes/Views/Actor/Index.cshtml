@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ProyectoLenguajes.Models.Actor>
+
+@{
+    ViewData["Title"] = "Actors";
+}
+
+<h1 class="text-center">Actors</h1>
+
+<p>
+    <a asp-action="Create">Add Actor</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                FirstName
+            </th>
+            <th>
+                LastName
+            </th>
+            <th>
+                Photo
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.actor_first_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.actor_last_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.actor_photo)
+            </td>
+            <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Options
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a asp-action="Details" asp-route-actor_id="@item.actor_id" class="dropdown-item">Details</a></li>
+                            <li><a asp-action="Edit" asp-route-actor_id="@item.actor_id" class="dropdown-item">Edit</a></li>
+                            <li><a asp-action="Delete" asp-route-actor_id="@item.actor_id" class="dropdown-item">Delete</a></li>
+                        </ul>
+                    </div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

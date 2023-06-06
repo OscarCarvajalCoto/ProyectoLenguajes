@@ -1,0 +1,90 @@
+﻿@model ProyectoLenguajes.Models.Movie_Serie_Actor
+
+@{
+    ViewData["Title"] = @ViewBag.IntermediateMSA.movie_serie.tittle + "Actors";
+}
+
+<h1 class="text-center">@ViewBag.IntermediateMSA.movie_serie.tittle Actors</h1>
+
+<h5>Add New Actor</h5>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="ms_id" value="@ViewBag.IntermediateMSA.movie_serie.ms_id" />
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="actor_id" id="actorInput" />
+                <select class="form-select" id="actorSelect" onchange="updateInput()">
+                    <option selected hidden>Select an actor</option>
+                    @foreach (Actor item in ViewBag.IntermediateMSA.actors_i)
+                    {
+                        <option value="@item.actor_id">@item.actor_first_name @item.actor_last_name</option>
+                    }
+                </select>
+                <span asp-validation-for="actor_id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-dark btn-sm" id="btn_add" disabled/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Actor FirstName
+            </th>
+            <th>
+                Actor LastName
+            </th>
+            <th>
+                Actor Photo
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Actor item in ViewBag.IntermediateMSA.actors_e)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.actor_first_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.actor_last_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.actor_photo)
+            </td>
+            <td>
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="ms_id" value="@ViewBag.IntermediateMSA.movie_serie.ms_id" />
+                    <input type="hidden" asp-for="actor_id" value="@item.actor_id"/>
+                    <input type="submit" value="Delete" class="btn btn-dark btn-sm" />
+                </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-center align-items-center text-center">
+    <button type="button" class="btn btn-dark btn-sm" onclick="location.href='@Url.Action("Index", "Actor")'">Manage Actors</button>
+</div>
+
+@section Scripts {
+    <script>
+        function updateInput() {
+            var select = document.getElementById("actorSelect");
+            var input = document.getElementById("actorInput");
+            var button = document.getElementById("btn_add");
+
+            button.disabled = false;
+            input.value = select.value;
+        }
+    </script>
+}

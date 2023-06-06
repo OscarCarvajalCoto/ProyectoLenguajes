@@ -1,0 +1,46 @@
+﻿@model ProyectoLenguajes.Models.Comment
+
+@{
+    ViewData["Title"] = "Add Comment";
+    int ms_id = ViewBag.ms_id;
+}
+
+<h1>Add Comment</h1>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success alert-@ViewBag.Message.Tipo fade show" role="alert">
+        <strong> Mesaage: </strong>@Html.Encode(ViewBag.Message.Text)
+    </div>
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="comment1" class="control-label">Comment</label>
+                <input asp-for="comment1" class="form-control" autocomplete="off"/>
+                <span asp-validation-for="comment1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="app_user" value="@User.Identity.Name" />
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="ms_id" value="@ms_id" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-route-ms_id="@ms_id">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

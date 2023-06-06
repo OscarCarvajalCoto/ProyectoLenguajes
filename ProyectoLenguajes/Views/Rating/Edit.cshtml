@@ -1,0 +1,49 @@
+﻿@model ProyectoLenguajes.Models.Rating
+
+@{
+    ViewData["Title"] = "Edit Rating";
+}
+
+<h1>Edit Rating</h1>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success alert-@ViewBag.Message.Tipo fade show" role="alert">
+        <strong> Mesaage: </strong>@Html.Encode(ViewBag.Message.Text)
+    </div>
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="rating_id" />
+            <div class="form-group">
+                <label asp-for="rating1" class="control-label">Rating</label>
+                <input asp-for="rating1" class="form-control" list="ratings" autocomplete="off"/>
+                <datalist id="ratings">
+                    <option value="1" />
+                    <option value="2" />
+                    <option value="3" />
+                    <option value="4" />
+                    <option value="5" />
+                </datalist>
+                <span asp-validation-for="rating1" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="app_user" />
+            <input type="hidden" asp-for="ms_id" />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-route-ms_id="@Model.ms_id">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

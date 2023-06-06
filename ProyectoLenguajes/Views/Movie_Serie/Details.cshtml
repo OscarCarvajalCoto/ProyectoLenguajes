@@ -1,0 +1,79 @@
+﻿@model ProyectoLenguajes.Models.Movie_Serie
+
+@{
+
+    if (Model.ms_type == "movie")
+    {
+        ViewData["Title"] = "Movie Details";
+        <h1>Movie Details</h1>
+    }
+    else if (Model.ms_type == "serie")
+    {
+        ViewData["Title"] = "Serie Details";
+        <h1>Serie Details</h1>
+    }
+}
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Type
+        </dt>
+        <dd class="col-sm-10 text-capitalize">
+            @Html.DisplayFor(model => model.ms_type)
+        </dd>
+        <dt class = "col-sm-2">
+            Tittle
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.tittle)
+        </dd>
+        <dt class = "col-sm-2">
+            Synopsis
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.synopsis)
+        </dd>
+        <dt class = "col-sm-2">
+            Release Year
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.release_year)
+        </dd>
+        <dt class = "col-sm-2">
+            Classification
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.classificationMS)
+        </dd>
+        <dt class = "col-sm-2">
+            Director
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.director)
+        </dd>
+        <dt class = "col-sm-2">
+            Cover
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.cover)
+        </dd>
+        <dt class = "col-sm-2">
+            Date Added
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.date_added)
+        </dd>
+        <dt class = "col-sm-2">
+            Duration
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.duration)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.ms_id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

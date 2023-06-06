@@ -5,13 +5,13 @@ namespace ProyectoLenguajes.Models;
 
 public partial class Episode
 {
+    public int ms_id { get; set; }
+
+    public int season_id { get; set; }
+
     public int episode_id { get; set; }
 
-    public string title { get; set; } = null!;
+    public string tittle { get; set; } = null!;
 
-    public int duration { get; set; }
-
-    public int episode_number { get; set; }
-
-    public int movies_series_id { get; set; }
+    public double duration { get; set; }
 }
