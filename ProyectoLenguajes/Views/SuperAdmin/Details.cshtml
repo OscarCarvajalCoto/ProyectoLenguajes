@@ -4,45 +4,147 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #000;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
 
-<div>
-    <h4>User</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.User.Id)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.User.Id)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Roles)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Roles)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.User.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.User.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.User.UserName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.User.UserName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.User.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.User.Email)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.User.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+        h1, h4 {
+            color: white;
+            text-align: center;
+        }
+
+        .row {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .control-label {
+            font-weight: bold;
+            color: #fff;
+            text-align: left;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        .text-danger {
+            color: red;
+        }
+
+        .btn-primary {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: forestgreen;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+            .btn-primary:hover {
+                background-color: darkolivegreen;
+            }
+
+        .btn-back {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            font-size: 16px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+            .btn-back:hover {
+                background-color: #555;
+            }
+
+        .text-right {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Details</h1>
+
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <h4>User</h4>
+                <hr />
+                <dl class="row">
+                    <dt class="col-sm-4 control-label">
+                        @Html.DisplayNameFor(model => model.User.Id)
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.User.Id)
+                    </dd>
+                    <dt class="col-sm-4 control-label">
+                        @Html.DisplayNameFor(model => model.Roles)
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Roles)
+                    </dd>
+                    <dt class="col-sm-4 control-label">
+                        @Html.DisplayNameFor(model => model.User.Name)
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.User.Name)
+                    </dd>
+                    <dt class="col-sm-4 control-label">
+                        @Html.DisplayNameFor(model => model.User.UserName)
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.User.UserName)
+                    </dd>
+                    <dt class="col-sm-4 control-label">
+                        @Html.DisplayNameFor(model => model.User.Email)
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.User.Email)
+                    </dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="form-group button-container">
+                    <a asp-action="Edit" asp-route-id="@Model.User.Id" class="btn btn-primary">Edit</a>
+                    <a asp-action="Index" class="btn btn-back">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+</html>
