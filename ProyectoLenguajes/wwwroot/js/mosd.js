@@ -12,14 +12,13 @@ function showRate(rating) {
     }
 }
 
-function rateMovie(rating) {
+function rateMovie(rating, app_user, ms_id) {
     showRate(rating);
-
-    var input = document.getElementById("rating1");
-    input.value = rating;
-
-    var btn_rate = document.getElementById("btn_rating");
-    btn_rate.click();
+    var url = "/HomePage/GetNewRating";
+    $.get(url, { rating: rating, app_user: app_user, ms_id: ms_id }, function (rate_data) {
+        var new_rating = JSON.parse(rate_data);
+        $("#rating_info").text("(" + new_rating.votes + " votes, average: " + new_rating.average + " from 5)");
+    });
 }
 
 function highlightStars(rating) {
@@ -39,3 +38,30 @@ function resetStars() {
         }
     }
 }
+$(document).ready(function () {
+    $('#actor_carousel').slick({
+        centerMode: true,
+        centerPadding: '60px',
+        slidesToShow: 2,
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                    arrows: false,
+                    centerMode: true,
+                    centerPadding: '40px',
+                    slidesToShow: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    arrows: false,
+                    centerMode: true,
+                    centerPadding: '40px',
+                    slidesToShow: 1
+                }
+            }
+        ]
+    });
+});
