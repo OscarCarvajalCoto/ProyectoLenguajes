@@ -18,7 +18,9 @@ namespace ProyectoLenguajes.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var lists = new HomePageModel();
+            
+            return View(lists);
         }
 
         public IActionResult Privacy()

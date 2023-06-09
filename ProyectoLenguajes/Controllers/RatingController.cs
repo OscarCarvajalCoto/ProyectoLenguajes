@@ -7,7 +7,6 @@ using System.Data;
 
 namespace ProyectoLenguajes.Controllers
 {
-    [Authorize(Roles = "admin")]
     public class RatingController : Controller
     {
         private ApplicationDataContext db = new ApplicationDataContext();
@@ -41,7 +40,7 @@ namespace ProyectoLenguajes.Controllers
             {
                 db.Ratings.Add(rating); 
                 db.SaveChanges();
-                return RedirectToAction("Index",new { rating.ms_id});
+                return RedirectToPage("HomePage/MovieOrSerieDetails",new { rating.ms_id});
             }
             catch
             {
