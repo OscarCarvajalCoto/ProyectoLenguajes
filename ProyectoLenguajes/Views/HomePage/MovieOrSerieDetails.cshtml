@@ -23,25 +23,36 @@
     .rating-container .star.checked {
       color: #FFBF00;
     }
+
+
   </style>
 @{
     int ms_id = Model.movie_serie.ms_id;
     string app_user = User.Identity.Name;
 }
-<h5 id="votes">Votes: @Model.rating_data.votes</h5>
-<h5 id="percentage">Percentage: @Model.rating_data.percentage</h5>
-<div class="container">
-    <div class="rating-container">
-        <span class="star" onclick="rateMovie(1,'@app_user',@ms_id)" onmouseover="highlightStars(1)" onmouseout="resetStars()">&#9733;</span>
-        <span class="star" onclick="rateMovie(2,'@app_user',@ms_id)" onmouseover="highlightStars(2)" onmouseout="resetStars()">&#9733;</span>
-        <span class="star" onclick="rateMovie(3,'@app_user',@ms_id)" onmouseover="highlightStars(3)" onmouseout="resetStars()">&#9733;</span>
-        <span class="star" onclick="rateMovie(4,'@app_user',@ms_id)" onmouseover="highlightStars(4)" onmouseout="resetStars()">&#9733;</span>
-        <span class="star" onclick="rateMovie(5,'@app_user',@ms_id)" onmouseover="highlightStars(5)" onmouseout="resetStars()">&#9733;</span>
+<div class="d-flex flex-row justify-content-center align-items-center text-center m-2">
+    <img id="img_ms" src="@Model.movie_serie.cover" class="d-block w-25 h-25 img-thumbnail">
+    <div class="d-flex flex-column flex-wrap justify-content-center align-items-center text-center m-2">
+        <span class="display-6 text-capitalize">@Model.movie_serie.tittle</span>
+        <div class="d-flex flex-row flex-wrap justify-content-center align-items-center text-center m-1">
+            <div class="d-flex flex-column">
+                 <div class="rating-container">
+                    <span class="star" onclick="rateMovie(1,'@app_user',@ms_id)" onmouseover="highlightStars(1)" onmouseout="resetStars()">&#9733;</span>
+                    <span class="star" onclick="rateMovie(2,'@app_user',@ms_id)" onmouseover="highlightStars(2)" onmouseout="resetStars()">&#9733;</span>
+                    <span class="star" onclick="rateMovie(3,'@app_user',@ms_id)" onmouseover="highlightStars(3)" onmouseout="resetStars()">&#9733;</span>
+                    <span class="star" onclick="rateMovie(4,'@app_user',@ms_id)" onmouseover="highlightStars(4)" onmouseout="resetStars()">&#9733;</span>
+                    <span class="star" onclick="rateMovie(5,'@app_user',@ms_id)" onmouseover="highlightStars(5)" onmouseout="resetStars()">&#9733;</span>
+                 </div>
+                 <span class="px-1" id="rating_info">(@Model.rating_data.votes votes, average: @Model.rating_data.average from 5)</span>
+            </div>
+            <span class="px-1">@Model.duration_h_m </span>
+            <span class="px-1">@Model.movie_serie.release_year</span>
+        </div>
+        <span class="px-1">@Model.movie_serie.synopsis</span>
+        <span class="px-1">Director: @Model.movie_serie.director</span>
+        <span class="px-1">Genres: @Model.genres</span>
     </div>
 </div>
-<h5 id="average">Average: @Model.rating_data.average from 5</h5>
-
-
 @section Scripts {
     <script>
         $(document).ready(function () {

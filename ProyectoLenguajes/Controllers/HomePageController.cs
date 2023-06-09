@@ -18,7 +18,14 @@ namespace ProyectoLenguajes.Controllers
             var movie_serie_data = new MovieOrSerieData();
             movie_serie_data.movie_serie = db.Movie_Series.Where(x => x.ms_id == ms_id).FirstOrDefault();
             movie_serie_data.actors = db.Actors.FromSqlRaw(@"exec Get_Movie_Serie_Actor @ms_id", new SqlParameter("@ms_id", ms_id)).ToList();
-            movie_serie_data.genres = db.Genres.FromSqlRaw(@"exec Get_Movie_Serie_Genre @ms_id", new SqlParameter("@ms_id", ms_id)).ToList();
+            
+            var genres = new SqlParameter("@genres", SqlDbType.VarChar, int.MaxValue) { Direction = ParameterDirection.Output };
+            await db.Database.ExecuteSqlRawAsync(@"Get_String_Genres @ms_id, @genres OUT", new SqlParameter("@ms_id", ms_id), genres);
+
+            movie_serie_data.genres = (string) genres.Value;
+
+            int h = (int)movie_serie_data.movie_serie.duration / 60;
+            movie_serie_data.duration_h_m = h + "h " + (movie_serie_data.movie_serie.duration - h * 60) + "m";
 
             var average = new SqlParameter("@average", SqlDbType.Float) { Direction = ParameterDirection.Output };
             var votes = new SqlParameter("@votes", SqlDbType.Int) { Direction = ParameterDirection.Output };
@@ -41,28 +48,14 @@ namespace ProyectoLenguajes.Controllers
             return View(movie_serie_data);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Rate(Rating rating)
-        {
-            try
-            {
-                db.Ratings.Add(rating);
-                db.SaveChanges();
-                return RedirectToAction("MovieOrSerieDetails", new { rating.ms_id });
-            }
-            catch
-            {
-                ViewBag.ms_id = rating.ms_id;
-                ViewBag.Message = new Message() { Text = "The rating has not been added successfully", Tipo = Alerta.danger.ToString() };
-                return View();
-            }
-        }
-
         public async Task<string> GetNewRating(int rating, string app_user, int ms_id)
         {
-            var ratingBD = new Rating() {rating1 = rating, app_user = app_user, ms_id = ms_id };
-            db.Ratings.Add(ratingBD);
+            var parameter = new List<SqlParameter>();
+            parameter.Add(new SqlParameter("@rating", rating));
+            parameter.Add(new SqlParameter("@app_user", app_user));
+            parameter.Add(new SqlParameter("@ms_id", ms_id));
+
+            await db.Database.ExecuteSqlRawAsync(@"exec Create_Rating @rating, @app_user, @ms_id", parameter.ToArray());
             db.SaveChanges();
 
             var newRating = new MovieOrSerieData.Rating_Data();
