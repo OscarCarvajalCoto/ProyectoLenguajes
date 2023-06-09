@@ -12,14 +12,19 @@ function showRate(rating) {
     }
 }
 
-function rateMovie(rating) {
+function rateMovie(rating, app_user, ms_id) {
     showRate(rating);
-
-    var input = document.getElementById("rating1");
-    input.value = rating;
-
-    var btn_rate = document.getElementById("btn_rating");
-    btn_rate.click();
+    var url = "/HomePage/GetNewRating";
+    $.get(url, { rating: rating, app_user: app_user, ms_id: ms_id }, function (rate_data) {
+        var new_rating = JSON.parse(rate_data);
+        $("#votes").text("Votes: " + new_rating.votes);
+        $("#percentage").text("Percentage: " + new_rating.percentage);
+        $("#average").text("Average: " + new_rating.average + " from 5");
+    });
+    var stars = document.getElementsByClassName("star");
+    for (var i = 0; i < stars.length; i++) {
+        stars[i].classList.add("disabled");
+    }
 }
 
 function highlightStars(rating) {

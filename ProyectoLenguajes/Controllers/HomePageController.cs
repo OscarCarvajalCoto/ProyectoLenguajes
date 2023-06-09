@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using ProyectoLenguajes.Data;
 using ProyectoLenguajes.Models;
 using System.Data;
@@ -18,8 +19,8 @@ namespace ProyectoLenguajes.Controllers
             movie_serie_data.movie_serie = db.Movie_Series.Where(x => x.ms_id == ms_id).FirstOrDefault();
             movie_serie_data.actors = db.Actors.FromSqlRaw(@"exec Get_Movie_Serie_Actor @ms_id", new SqlParameter("@ms_id", ms_id)).ToList();
             movie_serie_data.genres = db.Genres.FromSqlRaw(@"exec Get_Movie_Serie_Genre @ms_id", new SqlParameter("@ms_id", ms_id)).ToList();
-            
-            var average = new SqlParameter("@average", SqlDbType.Float) { Direction = ParameterDirection.Output};
+
+            var average = new SqlParameter("@average", SqlDbType.Float) { Direction = ParameterDirection.Output };
             var votes = new SqlParameter("@votes", SqlDbType.Int) { Direction = ParameterDirection.Output };
             var percentage = new SqlParameter("@percentage", SqlDbType.VarChar, 4) { Direction = ParameterDirection.Output };
             await db.Database.ExecuteSqlRawAsync(@"Get_Rating_Data @ms_id, @average OUT, @votes OUT, @percentage OUT", new SqlParameter("@ms_id", ms_id), average, votes, percentage);
@@ -58,34 +59,33 @@ namespace ProyectoLenguajes.Controllers
             }
         }
 
-        // GET: HomePageController/Details/5
-        public ActionResult Details(int id)
+        public async Task<string> GetNewRating(int rating, string app_user, int ms_id)
         {
-            return View();
-        }
+            var ratingBD = new Rating() {rating1 = rating, app_user = app_user, ms_id = ms_id };
+            db.Ratings.Add(ratingBD);
+            db.SaveChanges();
 
-        // GET: HomePageController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+            var newRating = new MovieOrSerieData.Rating_Data();
 
-        // POST: HomePageController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+            var average = new SqlParameter("@average", SqlDbType.Float) { Direction = ParameterDirection.Output };
+            var votes = new SqlParameter("@votes", SqlDbType.Int) { Direction = ParameterDirection.Output };
+            var percentage = new SqlParameter("@percentage", SqlDbType.VarChar, 4) { Direction = ParameterDirection.Output };
+            await db.Database.ExecuteSqlRawAsync(@"Get_Rating_Data @ms_id, @average OUT, @votes OUT, @percentage OUT", new SqlParameter("@ms_id", ms_id), average, votes, percentage);
 
-        // GET: HomePageController/Edit/5
-        
+            if (average.Value != DBNull.Value)
+                newRating.average = (double)average.Value;
+            else
+                newRating.average = 0;
+            if (votes.Value != DBNull.Value)
+                newRating.votes = (int)votes.Value;
+            else
+                newRating.votes = 0;
+            if (percentage.Value != DBNull.Value)
+                newRating.percentage = (string)percentage.Value;
+            else
+                newRating.percentage = "100%";
+
+            return JsonConvert.SerializeObject(newRating);
+        }
     }
 }
