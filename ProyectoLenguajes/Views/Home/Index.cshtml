@@ -4,9 +4,46 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+10 mas nuevos
+<div id="ten_new">
+    @foreach (var actor in Model.last_ten)
+    {
+        <div class="d-flex flex-column flex-wrap justify-content-center align-items-center text-center">
+            <img id="img_a" src="@actor.cover" class="d-block w-50 h-50 img-thumbnail">
+            <span class="px-1 text-capitalize">@actor.tittle </span>
+        </div>
+    }
 </div>
-
-
+@Model.genre1
+<div id="carousel1">
+    @foreach (var actor in Model.carrousel_1)
+    {
+        <div class="d-flex flex-column flex-wrap justify-content-center align-items-center text-center">
+            <img id="img_a" src="@actor.cover" class="d-block w-50 h-50 img-thumbnail">
+            <span class="px-1 text-capitalize">@actor.tittle </span>
+        </div>
+    }
+</div>
+@Model.genre2
+<div id="carousel2">
+    @foreach (var actor in Model.carrousel_2)
+    {
+        <div class="d-flex flex-column flex-wrap justify-content-center align-items-center text-center">
+            <img id="img_a" src="@actor.cover" class="d-block w-50 h-50 img-thumbnail">
+            <span class="px-1 text-capitalize">@actor.tittle </span>
+        </div>
+    }
+</div>
+@Model.genre3
+<div id="carousel3">
+    @foreach (var actor in Model.carrousel_3)
+    {
+        <div class="d-flex flex-column flex-wrap justify-content-center align-items-center text-center">
+            <img id="img_a" src="@actor.cover" class="d-block w-50 h-50 img-thumbnail">
+            <span class="px-1 text-capitalize">@actor.tittle </span>
+        </div>
+    }
+</div>
+@section Scripts {
+    <script src="~/js/mosd.js" asp-append-version="true"></script>
+}
