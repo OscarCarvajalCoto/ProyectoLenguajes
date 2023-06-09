@@ -53,6 +53,15 @@
         <span class="px-1">Genres: @Model.genres</span>
     </div>
 </div>
+<div id="actor_carousel">
+    @foreach (var actor in Model.actors)
+    {
+        <div class="d-flex flex-column flex-wrap justify-content-center align-items-center text-center">
+            <img id="img_a" src="@actor.actor_photo" class="d-block w-50 h-50 img-thumbnail">
+            <span class="px-1 text-capitalize">@actor.actor_first_name @actor.actor_last_name</span>
+        </div>
+    }
+</div>
 @section Scripts {
     <script>
         $(document).ready(function () {
