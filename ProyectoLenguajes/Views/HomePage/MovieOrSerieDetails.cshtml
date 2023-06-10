@@ -30,12 +30,12 @@
     int ms_id = Model.movie_serie.ms_id;
     string app_user = User.Identity.Name;
 }
-<div class="d-flex flex-row justify-content-center align-items-center text-center m-2">
+<div class="d-flex flex-row">
     <img id="img_ms" src="@Model.movie_serie.cover" class="d-block w-25 h-25 img-thumbnail">
-    <div class="d-flex flex-column flex-wrap justify-content-center align-items-center text-center m-2">
+    <div class="d-flex flex-column flex-wrap m-2">
         <span class="display-6 text-capitalize">@Model.movie_serie.tittle</span>
-        <div class="d-flex flex-row flex-wrap justify-content-center align-items-center text-center m-1">
-            <div class="d-flex flex-column">
+        <div class="d-flex flex-row flex-wrap justify-content-center align-items-md-center text-center m-1">
+            <div class="d-flex flex-column justify-content-center align-items-md-center text-center">
                  <div class="rating-container">
                     <span class="star" onclick="rateMovie(1,'@app_user',@ms_id)" onmouseover="highlightStars(1)" onmouseout="resetStars()">&#9733;</span>
                     <span class="star" onclick="rateMovie(2,'@app_user',@ms_id)" onmouseover="highlightStars(2)" onmouseout="resetStars()">&#9733;</span>
@@ -53,6 +53,7 @@
         <span class="px-1">Genres: @Model.genres</span>
     </div>
 </div>
+<br/><br/><br/>
 <div id="actor_carousel">
     @foreach (var actor in Model.actors)
     {
