@@ -13,6 +13,11 @@ namespace ProyectoLenguajes.Controllers
     {
         private ApplicationDataContext db = new ApplicationDataContext();
         // GET: HomePageController
+        public ActionResult Index()
+        {
+            return View();
+        }
+        // GET: HomePageController
         public async Task<ActionResult> MovieOrSerieDetails(int ms_id)
         {
             var movie_serie_data = new MovieOrSerieData();

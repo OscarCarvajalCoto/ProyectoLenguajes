@@ -55,7 +55,7 @@ namespace ProyectoLenguajes.Controllers
             var result = await _service.LoginAsync(model);
             if (result.StatusCode == 1)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "HomePage");
             }
             else
             {
