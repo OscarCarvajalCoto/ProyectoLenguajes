@@ -29,8 +29,12 @@ namespace ProyectoLenguajes.Controllers
 
             movie_serie_data.genres = (string) genres.Value;
 
-            int h = (int)movie_serie_data.movie_serie.duration / 60;
-            movie_serie_data.duration_h_m = h + "h " + (movie_serie_data.movie_serie.duration - h * 60) + "m";
+            if (movie_serie_data.movie_serie.ms_type == "movie")
+            {
+                int h = (int)movie_serie_data.movie_serie.duration / 60;
+                movie_serie_data.duration_h_m = h + "h " + (movie_serie_data.movie_serie.duration - h * 60) + "m";
+            }
+            else movie_serie_data.duration_h_m = "";
 
             var average = new SqlParameter("@average", SqlDbType.Float) { Direction = ParameterDirection.Output };
             var votes = new SqlParameter("@votes", SqlDbType.Int) { Direction = ParameterDirection.Output };

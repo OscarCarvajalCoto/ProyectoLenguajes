@@ -45,7 +45,10 @@
                  </div>
                  <span class="px-1" id="rating_info">(@Model.rating_data.votes votes, average: @Model.rating_data.average from 5)</span>
             </div>
-            <span class="px-1">@Model.duration_h_m </span>
+            @if (@Model.duration_h_m != "")
+            {
+                <span class="px-1">@Model.duration_h_m </span>
+            }
             <span class="px-1">@Model.movie_serie.release_year</span>
         </div>
         <span class="px-1">@Model.movie_serie.synopsis</span>
