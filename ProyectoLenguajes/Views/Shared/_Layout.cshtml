@@ -56,7 +56,14 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="HomePage" asp-action="MovieOrSerieDetails" asp-route-ms_id="1">HomePage</a>
                         </li>
                         <li>
-                            <img src="@Url.Action("UserPhoto", "Home" )" height="48" width="48" />
+                            <img src="@Url.Action("UserPhoto", "Home" )" height="48" width="48" onclick="showDropdown()" />
+                            <div id="dropdownContainer" style="display: none;">
+                                <select id="myDropdown">
+                                    <option value="opcion1">Opción 1</option>
+                                    <option value="opcion2">Opción 2</option>
+                                    <option value="opcion3">Opción 3</option>
+                                    </select>
+                             </div>
 
                         </li>
                         <li class="nav-item">

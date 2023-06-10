@@ -14,3 +14,8 @@ function previewProfileImage(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+
+function showDropdown() {
+    var dropdownContainer = document.getElementById("dropdownContainer");
+    dropdownContainer.style.display = "block";
+}
